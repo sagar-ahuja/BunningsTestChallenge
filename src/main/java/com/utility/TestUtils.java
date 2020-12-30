@@ -2,6 +2,7 @@ package com.utility;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -25,9 +26,28 @@ public class TestUtils extends TestBase{
 
 	
 	// Screenshot function
-	public static void takeScreenshotOnError() throws IOException {
-		File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileHandler.copy(srcFile, new File(System.getProperty("user.dir") + "/screenshots/" + System.currentTimeMillis()+".png"));
+	public static String takeScreenshotOnError(String methodName)  {
+		String fileName = getScreenshotName(methodName);
+		String directory = System.getProperty("user.dir") + "/screenshots/";
+		String path = directory + fileName;
+				
+		try {
+			File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			FileHandler.copy(srcFile, new File(path));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return path;
+	}
+	
+	
+	// Dynamic Screenshot name
+	public static String getScreenshotName(String methodName) {
+		Date d = new Date();
+		String name = methodName + d.toString().replace(":", "_").replace(" ", "_") + ".png";
+		return name;
 	}
 
 }

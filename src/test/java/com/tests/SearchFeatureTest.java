@@ -11,12 +11,15 @@ import com.pages.SearchFeature;
 
 public class SearchFeatureTest extends TestBase{
 	
+	
 	SearchFeature search;
 	Products products;
+	
 
 	public SearchFeatureTest() {
-		super();
-	}
+		super();		
+	}	
+	
 	
 	@BeforeMethod
 	public void setUp() {
@@ -59,5 +62,6 @@ public class SearchFeatureTest extends TestBase{
 	@AfterMethod
 	public void tearDown() {
 		driver.quit();
+		
 	}
 }
